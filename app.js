@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      singleTraitSearch(people)
       break;
       default:
     app(people); // restart app
@@ -103,4 +103,51 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+
+function singleTraitSearch (people){
+    let userInputTrait = prompt("Enter the trait you want to search");
+    let lowerCaseUserInputTrait = userInputTrait.toLowerCase();
+    
+    switch(lowerCaseUserInputTrait){
+      case "id":
+      case "gender":
+      case "dob":
+      case "height":
+      case "weight":
+      case "eyecolor":
+      case "occupation":
+      let peopleWithTraitDescription = singleTraitDescriptionSearch(lowerCaseUserInputTrait, people);
+      displayPeople(peopleWithTraitDescription);
+      break;
+      default:
+        alert("Wrong Input, try typing a correct trait again");
+      return singleTraitSearch(people); // ask again
+    }
+}
+
+function singleTraitDescriptionSearch(trait, people){
+  let userInputDescription = prompt("Enter the trait description you want to search for");
+  let lowerCaseUserInputDescription = userInputDescription.toLowerCase();
+  
+  let peopleListWithTraitDescription = people.filter(person => person[trait] == lowerCaseUserInputDescription);
+
+  if (peopleListWithTraitDescription.length > 0) {
+    return peopleListWithTraitDescription;
+    
+  } else {
+    let userChoice = prompt("No person found with matching description. Type the option to 'retry', 'menu' or 'quit'");
+    switch(userChoice){
+      case "retry":
+      singleTraitSearch(trait, people);
+      break;
+      case "menu":
+      app(people);
+      break;
+      case "quit":
+      return;
+      default:
+      singleTraitSearch(trait, people);
+    }
+  }
 }
