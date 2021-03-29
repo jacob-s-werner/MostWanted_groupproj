@@ -336,43 +336,37 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
 
     function findDescendents(person, people){
       let ancestorid = person.id;
-      let children = people.forEach(personInPeople => findChildren(ancestorid, people, personInPeople));
-
-
+      var descendantsList = [person];
+      let descendants = people.forEach(personInPeople => findChildren(ancestorid, people, personInPeople));
     }
+
     function findChildren(ancestorid, people, person){
-      if(person.parents.length == 0){
-        return null;
-      }
-      else{
-      var parentCount = person.parents.length;
-      }
-      
-     if(parentCount == 2){
-      if(ancestorid === person.parents[0]|| ancestorid === person.parents[1]){
-        return person;
-
-      }
-      
-      
-
-     }
-     else if(parentCount == 1){
-      if(ancestorid === person.parents[0]){
-        return person;
-
-      }
-      else{
-        return null
-      }
-
+      let descendantsList;
+      descendantsList = people.forEach(p => {
+        if(person.parents.length > 0){
+          var parentCount = person.parents.length;
+          
+          if(parentCount == 2){
+            if(ancestorid === person.parents[0]|| ancestorid === person.parents[1]){
+              descendantsList.push(p);
+              descendantsList = findChildren(ancestorid,people,p)
+            }
+          }
+          else if(parentCount == 1){
+            if(ancestorid === person.parents[0]){
+              descendantsList.push(p);
+              descendantsList = findChildren(ancestorid,people,p)
+            }
+          }
+          else {
+            return null;
+          }        
+        }
+      });
+      return descendantsList;
      }
 
-     
-
-    }
-    
-    function GetPersonFirstLastName(person){
+     function GetPersonFirstLastName(person){
       let personsFirstLastName = person.firstName + " " + person.lastName;
       return personsFirstLastName;
     }
