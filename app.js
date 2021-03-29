@@ -371,4 +371,8 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
      
 
     }
-  
+    
+    function GetPersonFirstLastName(person){
+      let personsFirstLastName = person.firstName + " " + person.lastName;
+      return personsFirstLastName;
+    }
