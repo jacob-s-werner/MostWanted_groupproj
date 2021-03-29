@@ -14,15 +14,26 @@ function app(people){
       break;
     case 'no':
       let peopleWithTraits = multiTraitDescriptionSearch(people);
-      
-      //let peopleWithTraitDescription = singleTraitSearch(people);
       displayPeople(peopleWithTraits);
+      searchResults = peopleWithTraits;
       break;
       default:
        app(people); // restart app
       break;
   }
   
+  let userChoice;
+
+  if (searchResults.length > 1) {
+    for (let index = 0; index < searchResults.length; index++) {
+      userChoice = prompt("Do you want to look at " + searchResults[index].firstName + " " + searchResults[index].lastName + " information ? Type 'yes' or 'no'");
+      if (userChoice.toLowerCase() === "yes") {
+        searchResults = searchResults[index];
+        break;
+      }
+    }
+  }
+
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
 }
@@ -41,7 +52,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+      displayPerson(person);
     break;
     case "family":
     // TODO: get person's family
@@ -87,6 +98,20 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Id: " + person.id + "\n";
+  personInfo += "Height: " + person.height + " in" + "\n";
+  personInfo += "DOB: " + person.dob + "\n";
+  personInfo += "Weight: " + person.weight + "lb" + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  
+  for (let index = 0; index < person.parents.length; index++) {
+    personInfo += "Parent ID " + (index +1).toString() +": " + person.parents[index] + "\n";
+  }
+  
+  if (person.currentSpouse != null) {
+    personInfo += "Current Spouse ID: " + person.currentSpouse;
+  }
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
