@@ -131,7 +131,7 @@ function singleTraitDescriptionSearch(trait, people){
   let userInputDescription = prompt("Enter the trait description you want to search for");
   let lowerCaseUserInputDescription = userInputDescription.toLowerCase();
   
-  let peopleListWithTraitDescription = people.filter(person => person[trait] == lowerCaseUserInputDescription);
+  let peopleListWithTraitDescription = people.filter(people => people[trait] == lowerCaseUserInputDescription);
 
   if (peopleListWithTraitDescription.length > 0) {
     return peopleListWithTraitDescription;
@@ -172,7 +172,7 @@ function multiTraitDescriptionSearchTwo(people){
  
       let listOfPPLWithTrait1One = singleTraitDescriptionSearch(traitA, people);
       let traitTwo = prompt("Please enter a trait from the following list: 'id', 'firstname', 'gender', 'dob', 'height','weight', 'eyecolor', 'occupation', 'parent', 'currentspouse' ");
-    let listOfPPLWithTraitTwoD = singleTraitDescriptionSearch(traitTwo, listOfPPLWithTrait1one);
+    let listOfPPLWithTraitTwoD = singleTraitDescriptionSearch(traitTwo, listOfPPLWithTrait1One);
     let traitThree = prompt("Please enter a trait from the following list: 'id', 'firstname', 'gender', 'dob', 'height','weight', 'eyecolor', 'occupation', 'parent', 'currentspouse' ");
     let listOfPPLWithTraitThree = singleTraitDescriptionSearch(traitThree, listOfPPLWithTraitTwoD);
 
@@ -199,7 +199,7 @@ function multiTraitDescriptionSearchTwo(people){
       let traitTwoH = prompt("Please enter a trait from the following list: 'id', 'firstname', 'gender', 'dob', 'height','weight', 'eyecolor', 'occupation', 'parent', 'currentspouse' ");
     let listOfPPLWithTraitTwoI = singleTraitDescriptionSearch(traitTwoH, listOfPPLWithTrait1twoI);
     let traitThreeJ = prompt("Please enter a trait from the following list: 'id', 'firstname', 'gender', 'dob', 'height','weight', 'eyecolor', 'occupation', 'parent', 'currentspouse' ");
-    let listOfPPLWithTraitThreek = singleTraitDescriptionSearch(traitThreeJ, listOfPPLWithTraitTwo);
+    let listOfPPLWithTraitThreek = singleTraitDescriptionSearch(traitThreeJ, listOfPPLWithTraitTwoI);
     let traitFourL = prompt("Please enter a trait from the following list: 'id', 'firstname', 'gender', 'dob', 'height','weight', 'eyecolor', 'occupation', 'parent', 'currentspouse' ");
     let listOfPPLWithTraitFourN =  singleTraitDescriptionSearch(traitFourL, listOfPPLWithTraitThreeK);
     let traitFiveM = prompt("Please enter a trait from the following list: 'id', 'firstname', 'gender', 'dob', 'height','weight', 'eyecolor', 'occupation', 'parent', 'currentspouse' ");
