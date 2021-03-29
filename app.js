@@ -45,7 +45,8 @@ function mainMenu(person, people){
 
   if(!person){
     alert("Could not find that individual.");
-    return app(people); // restart
+    return app(people);
+     // restart
   }
 
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
@@ -56,6 +57,7 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
+       findFamilyMembers(person, people);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -231,25 +233,34 @@ function continueAddingSearchProperties(){
 }
 }
 function findFamilyMembers(person, people){
-  let personsId = person.id; 
-  let personsParents = person.parents;
+  
+  let personsId = person.id;
+  let spouseid = person.currentSpouse;
   //(find people where( person.parents === personsParents)
   
-  let spouseOfPerson = people.currentSpouse.includes(id === personsId);
-  let siblingsOfPerson = people.parents.filter(parents === personsParents);
-  let parentsOfPerson = people.id.filter(id === personsParents);
+  let spouseOfPerson = people.id.filter(spouseid);
+  let siblingsOfPerson = people.filter(people.parents === person.parents.atindex(0));
+  siblingsOfPerson.add(people.filter(people.parents === person.parents.atindex(1)));
+  let parentsOfPerson = people.filter(people.id === personsParents);
   //display
   displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people)
   }
+
+
   function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people){
     // print all of the information about a person:
     // height, weight, age, name, occupation, eye color.
-
+ 
     let personInfo = "First Name: " + person.firstName + "\n";
     personInfo += "Last Name: " + person.lastName + "\n";
-    let spouseInfo = "Spouse First Name: " + spouseOfPerson.firstName + "\n";
-    spouseInfo += "Spouse Last Name: " + spouseOfPerson.lastName + "\n";
 
+    if(spouseOfPerson != null){
+      let spouseInfo = "Spouse First Name: " + spouseOfPerson.firstName + "\n";
+      spouseInfo += "Spouse Last Name: " + spouseOfPerson.lastName + "\n";
+      alert(spouseInfo);
+    }
+   
+  
      let siblingsCount = siblingsOfPerson.count;
      let siblingsCountSt = siblingsCount.tostring();
      let parentCount = parentsOfPerson.count;
@@ -297,6 +308,6 @@ function findFamilyMembers(person, people){
          break
       }
   
-    alert(personInfo, spouseInfo, sinblingInfo, parentInfo );
-  }
+    alert(personInfo, spouseInfo, sinblingInfo, parentInfo);
+    }
   
