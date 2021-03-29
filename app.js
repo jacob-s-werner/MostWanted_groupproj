@@ -64,6 +64,7 @@ function mainMenu(person, people){
     break;
     case "descendants":
     // TODO: get person's descendants
+    findDescendents(person, people);
     break;
     case "restart":
     app(people); // restart
@@ -326,6 +327,48 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
          break
       }
   
-    alert(personInfo, spouseInfo, sinblingInfo, parentInfo);
+   
+   
+   
+   
+      alert(personInfo, spouseInfo, sinblingInfo, parentInfo);
+    }
+
+    function findDescendents(person, people){
+      let ancestorid = person.id;
+      let children = people.forEach(personInPeople => findChildren(ancestorid, people, personInPeople));
+
+
+    }
+    function findChildren(ancestorid, people, person){
+      if(person.parents.length == 0){
+        return null;
+      }
+      else{
+      var parentCount = person.parents.length;
+      }
+      
+     if(parentCount == 2){
+      if(ancestorid === person.parents[0]|| ancestorid === person.parents[1]){
+        return person;
+
+      }
+      
+      
+
+     }
+     else if(parentCount == 1){
+      if(ancestorid === person.parents[0]){
+        return person;
+
+      }
+      else{
+        return null
+      }
+
+     }
+
+     
+
     }
   
