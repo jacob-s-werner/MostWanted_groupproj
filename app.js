@@ -205,3 +205,73 @@ function continueAddingSearchProperties(){
 
 }
 }
+function findFamilyMembers(person, people){
+  let personsId = person.id; 
+  let personsParents = person.parents;
+  //(find people where( person.parents === personsParents)
+  
+  let spouseOfPerson = people.currentSpouse.includes(id === personsId);
+  let siblingsOfPerson = people.parents.filter(parents === personsParents);
+  let parentsOfPerson = people.id.filter(id === personsParents);
+  //display
+  displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people)
+  }
+  function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people){
+    // print all of the information about a person:
+    // height, weight, age, name, occupation, eye color.
+
+    let personInfo = "First Name: " + person.firstName + "\n";
+    personInfo += "Last Name: " + person.lastName + "\n";
+    let spouseInfo = "Spouse First Name: " + spouseOfPerson.firstName + "\n";
+    spouseInfo += "Spouse Last Name: " + spouseOfPerson.lastName + "\n";
+
+     let siblingsCount = siblingsOfPerson.count;
+     let siblingsCountSt = siblingsCount.tostring();
+     let parentCount = parentsOfPerson.count;
+     let parentsCountSt = parentCount.tostring();
+     var siblingInfo;
+    var parentInfo;
+
+     switch(siblingsCountSt){
+         case "1":
+           let siblingInfo1 = "Sibling First Name: " + siblingsOfPerson.firstName + "\n";
+           siblingInfo1 += "Last Name: " + siblingsOfPerson.lastName + "\n";
+           var siblingInfo = siblingInfo1;
+         break;
+        case "2":
+  
+            let siblingInfo2 = "Sibling First Name: " + siblingsOfPerson.atindex(0).firstName + "\n";
+            siblingInfo2 += "Sibling Last Name: " + siblingsOfPerson.atindex(0).lastName + "\n";
+            siblingInfo2 += "Sibling First Name: " + siblingsOfPerson.atindex(1).firstName + "\n";
+            siblingInfo2 += "Sibling Last Name: " + siblingsOfPerson.atindex(1).lastName + "\n";
+            siblingInfo = siblingInfo2;
+       break;
+       case "3":
+          let siblingInfo3 = "Sibling First Name: " + siblingsOfPerson.atindex(0).firstName + "\n";
+           siblingInfo3 += "Sibling Last Name: " + siblingsOfPerson.atindex(0).lastName + "\n";
+           siblingInfo3 += "Sibling First Name: " + siblingsOfPerson.atindex(1).firstName + "\n";
+          siblingInfo3 += "Sibling Last Name: " + siblingsOfPerson.atindex(1).lastName + "\n";
+           siblingInfo3 += "Sibling First Name: " + siblingsOfPerson.atindex(2).firstName + "\n";
+          siblingInfo3 += "Sibling Last Name: " + siblingsOfPerson.atindex(2).lastName + "\n";
+          siblingInfo = siblingInfo3;
+       break;
+         }
+
+      switch(parentsCountSt){
+          case "1":
+             let parentInfo1 = "Parent First Name: " + parentsOfPerson.firstName + "\n";
+             parentInfo1 += "Last Name: " + parentsOfPerson.lastName + "\n";
+            var parentInfo = parentInfo1;
+            break;
+          case "2":
+              let parentInfo2 = "Parent First Name: " + parentsOfPerson.atindex(0).firstName + "\n";
+              parentInfo2 += "Parent Last Name: " + parentsOfPerson.atindex(0).lastName + "\n";
+              parentInfo2 += "parent First Name: " + parentsOfPerson.atindex(1).firstName + "\n";
+               parentInfo2 += "Sibling Last Name: " + parentsOfPerson.atindex(1).lastName + "\n";
+             parentInfo = parentInfo2;
+         break
+      }
+  
+    alert(personInfo, spouseInfo, sinblingInfo, parentInfo );
+  }
+  
