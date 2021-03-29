@@ -6,7 +6,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  /* let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
   switch(searchType){
     case 'yes':
@@ -33,9 +33,12 @@ function app(people){
       }
     }
   }
-
+*/
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+  //mainMenu(searchResults, people);
+
+  let searchResults = people[19]
+  mainMenu(searchResults,people)
 }
 
 // Menu function to call once you find who you are looking for
@@ -238,19 +241,34 @@ function findFamilyMembers(person, people){
   let spouseid = person.currentSpouse;
   //(find people where( person.parents === personsParents)
   
-  let spouseOfPerson = people.id.filter(spouseid);
-  let siblingsOfPerson = people.filter(people.parents === person.parents.atindex(0));
-  siblingsOfPerson.add(people.filter(people.parents === person.parents.atindex(1)));
-  let parentsOfPerson = people.filter(people.id === personsParents);
-  //display
-  displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people)
+  let spouseOfPerson = people.filter(people => people.id == spouseid);
+  let siblingsOfPerson, parentsOfPerson;
+
+  if (person.parents.length > 0) {
+    for (let index = 0; index < person.parents.length; index++) {
+      let siblingList = people.filter(people => people.parents.includes(person.parents[index]));
+      let parent = people.filter(people => people.id === person.parents[index]);
+      if (index == 0) {
+        siblingsOfPerson = siblingList;
+        parentsOfPerson = parent;
+      } else {
+        parent.forEach(parent => {
+          parentsOfPerson.push(parent);
+        });
+        siblingList.forEach(sibling => {
+          if (!siblingsOfPerson.includes(sibling)) {
+            siblingsOfPerson.push(sibling);
+          }
+        });
+      }
+    }
   }
 
+  displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people)
+}
 
-  function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people){
-    // print all of the information about a person:
-    // height, weight, age, name, occupation, eye color.
- 
+function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people){
+
     let personInfo = "First Name: " + person.firstName + "\n";
     personInfo += "Last Name: " + person.lastName + "\n";
 
@@ -259,11 +277,11 @@ function findFamilyMembers(person, people){
       spouseInfo += "Spouse Last Name: " + spouseOfPerson.lastName + "\n";
       alert(spouseInfo);
     }
-   
+    
   
-     let siblingsCount = siblingsOfPerson.count;
+     let siblingsCount = siblingsOfPerson.count();
      let siblingsCountSt = siblingsCount.tostring();
-     let parentCount = parentsOfPerson.count;
+     let parentCount = parentsOfPerson.count();
      let parentsCountSt = parentCount.tostring();
      var siblingInfo;
     var parentInfo;
