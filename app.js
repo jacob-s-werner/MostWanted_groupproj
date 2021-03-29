@@ -37,7 +37,7 @@ function app(people){
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   //mainMenu(searchResults, people);
 
-  let searchResults = people[19]
+  let searchResults = people[1]
   mainMenu(searchResults,people)
 }
 
@@ -336,37 +336,23 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
 
     function findDescendents(person, people){
       let ancestorid = person.id;
-      var descendantsList = [person];
-      let descendants = people.forEach(personInPeople => findChildren(ancestorid, people, personInPeople));
+      let descendantsList = [];
+      descendantsList = findChildren(ancestorid, people, descendantsList);
+
     }
 
-    function findChildren(ancestorid, people, person){
-      let descendantsList;
-      descendantsList = people.forEach(p => {
-        if(person.parents.length > 0){
-          var parentCount = person.parents.length;
-          
-          if(parentCount == 2){
-            if(ancestorid === person.parents[0]|| ancestorid === person.parents[1]){
-              descendantsList.push(p);
-              descendantsList = findChildren(ancestorid,people,p)
-            }
-          }
-          else if(parentCount == 1){
-            if(ancestorid === person.parents[0]){
-              descendantsList.push(p);
-              descendantsList = findChildren(ancestorid,people,p)
-            }
-          }
-          else {
-            return null;
-          }        
+    function findChildren(parentId, people){
+      let childList = [];
+      people.forEach(person => {
+        if (person.parents.includes(parentId)) {
+          childList.push(person);
+          let grandchildList = findChildren(person.id, people);
         }
       });
-      return descendantsList;
-     }
+      return childList;
+    }
 
-     function GetPersonFirstLastName(person){
+     function getPersonFirstLastName(person){
       let personsFirstLastName = person.firstName + " " + person.lastName;
       return personsFirstLastName;
     }
