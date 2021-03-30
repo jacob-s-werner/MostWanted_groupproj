@@ -30,6 +30,9 @@ function app(people){
       if (userChoice.toLowerCase() === "yes") {
         searchResults = searchResults[index];
         break;
+      }else if (searchResults.length - 1 == index) {
+        alert("No person selected, closing app")
+        return;
       }
     }
   }
