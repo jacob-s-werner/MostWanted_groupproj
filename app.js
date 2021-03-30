@@ -16,15 +16,15 @@ function app(people){
       let peopleWithTraits = multiTraitDescriptionSearch(people);
       displayPeople(peopleWithTraits);
       searchResults = peopleWithTraits;
-      break;
-      default:
+    break;
+    default:
        app(people); 
-      break;
+    break;
   }
   
   let userChoice;
 
-  if (searchResults.length > 1) {
+  if (searchResults.length > 0) {
     for (let index = 0; index < searchResults.length; index++) {
       userChoice = prompt("Do you want to look at " + searchResults[index].firstName + " " + searchResults[index].lastName + " information ? Type 'yes' or 'no'");
       if (userChoice.toLowerCase() === "yes") {
@@ -36,7 +36,7 @@ function app(people){
       }
     }
   }
-  mainMenu(searchResults[0],people)
+  mainMenu(searchResults,people)
 }
 
 // Menu function to call once you find who you are looking for
@@ -169,9 +169,7 @@ function singleTraitSearch (people){
 
 function singleTraitDescriptionSearch(trait, people){
   let userInputDescription = prompt("Enter the trait description you want to search for");
-  let lowerCaseUserInputDescription = userInputDescription.toLowerCase();
-  
-  let peopleListWithTraitDescription = people.filter(people => people[trait] == lowerCaseUserInputDescription);
+  let peopleListWithTraitDescription = people.filter(people => people[trait] == userInputDescription);
 
   if (peopleListWithTraitDescription.length > 0) {
     return peopleListWithTraitDescription;
@@ -210,8 +208,12 @@ function multiTraitDescriptionSearch(people){
       let newList = singleTraitSearch(listOfPPLWithTraits);
       listOfPPLWithTraits = newList;
     }
-
-    return listOfPPLWithTraits;
+    if (listOfPPLWithTraits.length > 0) {
+      return listOfPPLWithTraits;
+    }else{
+      alert("no person found, try searching again");
+      multiTraitDescriptionSearch(people);
+    }
     default:
       alert("Input not validated.");
     multiTraitDescriptionSearch(people);
