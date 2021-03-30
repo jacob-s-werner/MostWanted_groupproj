@@ -37,7 +37,7 @@ function app(people){
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   //mainMenu(searchResults, people);
 
-  let searchResults = people[1]
+  let searchResults = people[19]
   mainMenu(searchResults,people)
 }
 
@@ -280,9 +280,9 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
     }
     
   
-     let siblingsCount = siblingsOfPerson.count();
+     let siblingsCount = siblingsOfPerson.length;
      let siblingsCountSt = siblingsCount.tostring();
-     let parentCount = parentsOfPerson.count();
+     let parentCount = parentsOfPerson.length;
      let parentsCountSt = parentCount.tostring();
      var siblingInfo;
     var parentInfo;
@@ -336,23 +336,15 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
 
     function findDescendents(person, people){
       let ancestorid = person.id;
-      let descendantsList = [];
-      descendantsList = findChildren(ancestorid, people, descendantsList);
 
-    }
-
-    function findChildren(parentId, people){
-      let childList = [];
-      people.forEach(person => {
-        if (person.parents.includes(parentId)) {
-          childList.push(person);
-          let grandchildList = findChildren(person.id, people);
+          }
+     
         }
       });
-      return childList;
-    }
+     }
 
      function getPersonFirstLastName(person){
       let personsFirstLastName = person.firstName + " " + person.lastName;
       return personsFirstLastName;
     }
+    
