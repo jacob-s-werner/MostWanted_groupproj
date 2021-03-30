@@ -281,9 +281,9 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
     }
     
   
-     let siblingsCount = siblingsOfPerson.count();
+     let siblingsCount = siblingsOfPerson.length;
      let siblingsCountSt = siblingsCount.tostring();
-     let parentCount = parentsOfPerson.count();
+     let parentCount = parentsOfPerson.length;
      let parentsCountSt = parentCount.tostring();
      var siblingInfo;
      var parentInfo;
@@ -357,3 +357,4 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
       let personsFirstLastName = person.firstName + " " + person.lastName;
       return personsFirstLastName;
     }
+    
