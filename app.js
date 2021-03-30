@@ -154,13 +154,23 @@ function singleTraitSearch (people){
         let peopleWithLastName = singleTraitDescriptionSearch("lastName", people);
         return peopleWithLastName;
       case "id":
+        let peopleWithId = singleTraitDescriptionSearch("id", people);
+        return peopleWithId;
       case "gender":
+        letPeopleWithGender = singleTraitDescriptionSearch("gender", people);
+        return letPeopleWithGender;
       case "dob":
+        let peopleWithDob = singleTraitDescriptionSearch("dob", people);
+        return peopleWithDob;
       case "height":
+        let peopleWithHeight = singleTraitDescriptionSearch("height", people);
+        return peopleWithHeight;
       case "weight":
+        let peopleWithWeight = singleTraitDescriptionSearch("height", people);
+        return peopleWithWeight;
       case "occupation":
-        let listOFPPLWithTraits = singleTraitDescriptionSearch(lowerCaseUserInputTrait, people);
-      return listOFPPLWithTraits;
+        let listOFPPLWithOccupation = singleTraitDescriptionSearch("occupation", people);
+      return listOFPPLWithOccupation;
       default:
         alert("Wrong Input, try typing a correct trait again");
       return singleTraitSearch(people); // ask again
@@ -171,10 +181,13 @@ function singleTraitDescriptionSearch(trait, people){
   let userInputDescription = prompt("Enter the trait description you want to search for");
   let lowerCaseUserInputDescription = userInputDescription.toLowerCase();
   
-  let peopleListWithTraitDescription = people.filter(people => people[trait] == lowerCaseUserInputDescription);
+  var peopleListWithTraitDescription = people.filter(element => element[trait].toString().toLowerCase() === lowerCaseUserInputDescription).push();//height/70 finds three
+  return peopleListWithTraitDescription;
+ // let parent = people.filter(people => people.id === person.parents[index]);
 
-  if (peopleListWithTraitDescription.length > 0) {
-    return peopleListWithTraitDescription;
+   let pplCount = peopleListWithTraitDescription.length;
+  if (pplCount > 0) {
+    return peopleListWithTraitDescription; //returns nothing
     
   } else {
     let userChoice = prompt("No person found with matching description. Type the option to 'retry', 'menu' or 'quit'");
@@ -206,9 +219,9 @@ function multiTraitDescriptionSearch(people){
     let counter = parseInt(countOfTraitsStr);
     var listOfPPLWithTraits = people;
 
-    for (let i = counter; i != 0; i--) {
-      let newList = singleTraitSearch(listOfPPLWithTraits);
-      listOfPPLWithTraits = newList;
+    for (let i = counter; i > 0; i--) {
+      let newList = singleTraitSearch(listOfPPLWithTraits).push();
+      listOfPPLWithTraits += newList.push();
     }
 
     return listOfPPLWithTraits;
