@@ -33,7 +33,7 @@ function app(people){
       }
     }
   }
-  mainMenu(searchResults,people)
+  mainMenu(searchResults[0],people)
 }
 
 // Menu function to call once you find who you are looking for
@@ -49,7 +49,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-      displayPerson(person);
+      displayPerson(person,people);
     break;
     case "family":
       findFamilyMembers(person, people);
@@ -90,7 +90,7 @@ function displayPeople(people){
   }).join("\n"));
 }
 
-function displayPerson(person){
+function displayPerson(person,people){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
@@ -107,7 +107,10 @@ function displayPerson(person){
   }
   
   if (person.currentSpouse != null) {
-    personInfo += "Current Spouse: " + people.filter(p => p.id === person.currentSpouse)[0];
+    let currentSpouse = people.filter(p => p.id === person.currentSpouse);
+    personInfo += "Current Spouse: " + currentSpouse[0].firstName + " " + currentSpouse[0].lastName;
+  }else{
+    personInfo += "No Known Spouse \n"
   }
   alert(personInfo);
 }
