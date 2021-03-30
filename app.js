@@ -55,7 +55,7 @@ function mainMenu(person, people){
       findFamilyMembers(person, people);
     break;
     case "descendants":
-      let descendantsList = findDescendents(person, people);
+      let descendantsList = findDescendants(person, people);
       displayPeople(descendantsList);
     break;
     case "restart":
@@ -270,7 +270,7 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
   alert(personInfo + spouseInfo + allSiblings + allParents);
 }
 
-function findDescendents(person, people){
+function findDescendants(person, people){
   let ancestorid = person.id;
   let descendantsList = [];
   descendantsList = findChildren(ancestorid, people, descendantsList);
