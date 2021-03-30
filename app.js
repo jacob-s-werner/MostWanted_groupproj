@@ -337,11 +337,8 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
     function findDescendents(person, people){
       let ancestorid = person.id;
 
-          }
+      }
      
-        }
-      });
-     }
 
      function getPersonFirstLastName(person){
       let personsFirstLastName = person.firstName + " " + person.lastName;
