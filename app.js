@@ -244,7 +244,7 @@ function findFamilyMembers(person, people){
   //(find people where( person.parents === personsParents)
   
   let spouseOfPerson = people.filter(people => people.id == spouseid);
-  let siblingsOfPerson, parentsOfPerson;
+  let siblingsOfPerson = [], parentsOfPerson = [];
 
   if (person.parents.length > 0) {
     for (let index = 0; index < person.parents.length; index++) {
@@ -279,60 +279,18 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
       spouseInfo += "Spouse Last Name: " + spouseOfPerson.lastName + "\n";
       alert(spouseInfo);
     }
+     let allSiblings = "";
+     if(siblingsOfPerson.length > 0){
     
-  
-     let siblingsCount = siblingsOfPerson.length;
-     let siblingsCountSt = siblingsCount.tostring();
-     let parentCount = parentsOfPerson.length;
-     let parentsCountSt = parentCount.tostring();
-     var siblingInfo;
-     var parentInfo;
+       siblingsOfPerson.forEach(sibling => allSiblings += (getPersonFirstLastName(sibling, "Sibling")));
 
-     switch(siblingsCountSt){
-         case "1":
-           let siblingInfo1 = "Sibling First Name: " + siblingsOfPerson.firstName + "\n";
-           siblingInfo1 += "Last Name: " + siblingsOfPerson.lastName + "\n";
-           var siblingInfo = siblingInfo1;
-         break;
-        case "2":
-  
-            let siblingInfo2 = "Sibling First Name: " + siblingsOfPerson.atindex(0).firstName + "\n";
-            siblingInfo2 += "Sibling Last Name: " + siblingsOfPerson.atindex(0).lastName + "\n";
-            siblingInfo2 += "Sibling First Name: " + siblingsOfPerson.atindex(1).firstName + "\n";
-            siblingInfo2 += "Sibling Last Name: " + siblingsOfPerson.atindex(1).lastName + "\n";
-            siblingInfo = siblingInfo2;
-       break;
-       case "3":
-          let siblingInfo3 = "Sibling First Name: " + siblingsOfPerson.atindex(0).firstName + "\n";
-           siblingInfo3 += "Sibling Last Name: " + siblingsOfPerson.atindex(0).lastName + "\n";
-           siblingInfo3 += "Sibling First Name: " + siblingsOfPerson.atindex(1).firstName + "\n";
-          siblingInfo3 += "Sibling Last Name: " + siblingsOfPerson.atindex(1).lastName + "\n";
-           siblingInfo3 += "Sibling First Name: " + siblingsOfPerson.atindex(2).firstName + "\n";
-          siblingInfo3 += "Sibling Last Name: " + siblingsOfPerson.atindex(2).lastName + "\n";
-          siblingInfo = siblingInfo3;
-       break;
-         }
+     }
 
-      switch(parentsCountSt){
-          case "1":
-             let parentInfo1 = "Parent First Name: " + parentsOfPerson.firstName + "\n";
-             parentInfo1 += "Last Name: " + parentsOfPerson.lastName + "\n";
-            var parentInfo = parentInfo1;
-            break;
-          case "2":
-              let parentInfo2 = "Parent First Name: " + parentsOfPerson.atindex(0).firstName + "\n";
-              parentInfo2 += "Parent Last Name: " + parentsOfPerson.atindex(0).lastName + "\n";
-              parentInfo2 += "parent First Name: " + parentsOfPerson.atindex(1).firstName + "\n";
-               parentInfo2 += "Sibling Last Name: " + parentsOfPerson.atindex(1).lastName + "\n";
-             parentInfo = parentInfo2;
-         break
-      }
-  
-   
-   
-   
-   
-      alert(personInfo, spouseInfo, sinblingInfo, parentInfo);
+     let allParents = "";
+     if(parentsOfPerson.length > 0){
+      parentsOfPerson.forEach(parent => allParents += (getPersonFirstLastName(parent, "Parental")));
+    }
+      alert(personInfo, spouseInfo, allSiblings, allParents);
     }
 
     function findDescendents(person, people){
@@ -353,8 +311,8 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
       return childList;
     }
 
-     function getPersonFirstLastName(person){
-      let personsFirstLastName = person.firstName + " " + person.lastName;
+     function getPersonFirstLastName(person, relation = ""){
+      let personsFirstLastName = relation + " " + person.firstName + " " + person.lastName + "\n";
       return personsFirstLastName;
     }
     
