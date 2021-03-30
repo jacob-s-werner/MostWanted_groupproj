@@ -6,7 +6,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 // app is the function called to start the entire application
 function app(people){
-  /* let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
   switch(searchType){
     case 'yes':
@@ -18,7 +18,7 @@ function app(people){
       searchResults = peopleWithTraits;
       break;
       default:
-       app(people); // restart app
+       app(people); 
       break;
   }
   
@@ -33,19 +33,12 @@ function app(people){
       }
     }
   }
-*/
-  // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  //mainMenu(searchResults, people);
-
-  let searchResults = people[1]
   mainMenu(searchResults,people)
 }
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
-
   if(!person){
     alert("Could not find that individual.");
     return app(people);
@@ -59,13 +52,11 @@ function mainMenu(person, people){
       displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
-       findFamilyMembers(person, people);
+      findFamilyMembers(person, people);
     break;
     case "descendants":
-    // TODO: get person's descendants
-    descendantsList = findDescendents(person, people);
-    displayPeople(descendantsList);
+      descendantsList = findDescendents(person, people);
+      displayPeople(descendantsList);
     break;
     case "restart":
     app(people); // restart
@@ -89,7 +80,6 @@ function searchByName(people){
       return false;
     }
   })
-  // TODO: find the person using the name they entered
   return foundPerson;
 }
 
@@ -117,9 +107,8 @@ function displayPerson(person){
   }
   
   if (person.currentSpouse != null) {
-    personInfo += "Current Spouse ID: " + person.currentSpouse;
+    personInfo += "Current Spouse: " + people.filter(p => p.id === person.currentSpouse)[0];
   }
-  // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
 
@@ -224,27 +213,10 @@ function multiTraitDescriptionSearch(people){
   }
 }
 
-function continueAddingSearchProperties(){
-  let userchoice = prompt("Would you like to search for another? Enter 'y' for yes or 'n' for no.");
-  let userChoceSt = userchoice.toString().toLowerCase();
-  switch(userChoceSt){
-    case "y":
-      return true;
-    break;
-    default :
-      return false;
-    break;
-
-}
-}
 function findFamilyMembers(person, people){
-  
-  let personsId = person.id;
   let spouseid = person.currentSpouse;
-  //(find people where( person.parents === personsParents)
-  
-  let spouseOfPerson = people.filter(people => people.id == spouseid);
-  let siblingsOfPerson = [], parentsOfPerson = [];
+  let spouseOfPerson = [], siblingsOfPerson = [], parentsOfPerson = [];
+  spouseOfPerson = people.filter(people => people.id == spouseid);
 
   if (person.parents.length > 0) {
     for (let index = 0; index < person.parents.length; index++) {
@@ -266,53 +238,55 @@ function findFamilyMembers(person, people){
     }
   }
 
-  displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people)
+  displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson)
 }
 
-function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson, people){
+function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsOfPerson){
 
-    let personInfo = "First Name: " + person.firstName + "\n";
-    personInfo += "Last Name: " + person.lastName + "\n";
+  let personInfo = "First Name: " + person.firstName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
 
-    if(spouseOfPerson != null){
-      let spouseInfo = "Spouse First Name: " + spouseOfPerson.firstName + "\n";
-      spouseInfo += "Spouse Last Name: " + spouseOfPerson.lastName + "\n";
-      alert(spouseInfo);
+  let spouseInfo = "No Known Spouse \n"
+  if(spouseOfPerson.length > 0){
+    spouseInfo = getPersonFirstLastName(spouseOfPerson[0], "Current Spouse:");
+  }
+
+  let allSiblings = "";
+  if(siblingsOfPerson.length > 0){
+    siblingsOfPerson.forEach(sibling => allSiblings += (getPersonFirstLastName(sibling, "Sibling:")));
+  }else{
+    allSiblings = "No Known Siblings \n"
+  }
+
+    let allParents = "";
+    if(parentsOfPerson.length > 0){
+    parentsOfPerson.forEach(parent => allParents += (getPersonFirstLastName(parent, "Parent:")));
+  }else{
+    allParents = "No Known Parents \n"
+  }
+  alert(personInfo + spouseInfo + allSiblings + allParents);
+}
+
+function findDescendents(person, people){
+  let ancestorid = person.id;
+  let descendantsList = [];
+  descendantsList = findChildren(ancestorid, people, descendantsList);
+  return descendantsList;
+}
+
+function findChildren(parentId, people){
+  let childList = [];
+  people.forEach(person => {
+    if (person.parents.includes(parentId)) {
+      childList.push(person);
+      let grandchildList = findChildren(person.id, people);
     }
-     let allSiblings = "";
-     if(siblingsOfPerson.length > 0){
-    
-       siblingsOfPerson.forEach(sibling => allSiblings += (getPersonFirstLastName(sibling, "Sibling")));
+  });
+  return childList;
+}
 
-     }
-
-     let allParents = "";
-     if(parentsOfPerson.length > 0){
-      parentsOfPerson.forEach(parent => allParents += (getPersonFirstLastName(parent, "Parental")));
-    }
-      alert(personInfo, spouseInfo, allSiblings, allParents);
-    }
-
-    function findDescendents(person, people){
-      let ancestorid = person.id;
-      let descendantsList = [];
-      descendantsList = findChildren(ancestorid, people, descendantsList);
-      return descendantsList;
-    }
-
-    function findChildren(parentId, people){
-      let childList = [];
-      people.forEach(person => {
-        if (person.parents.includes(parentId)) {
-          childList.push(person);
-          let grandchildList = findChildren(person.id, people);
-        }
-      });
-      return childList;
-    }
-
-     function getPersonFirstLastName(person, relation = ""){
-      let personsFirstLastName = relation + " " + person.firstName + " " + person.lastName + "\n";
-      return personsFirstLastName;
-    }
+function getPersonFirstLastName(person, relation = ""){
+let personsFirstLastName = relation + " " + person.firstName + " " + person.lastName + "\n";
+return personsFirstLastName;
+}
     
