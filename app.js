@@ -64,7 +64,8 @@ function mainMenu(person, people){
     break;
     case "descendants":
     // TODO: get person's descendants
-    findDescendents(person, people);
+    descendantsList = findDescendents(person, people);
+    displayPeople(descendantsList);
     break;
     case "restart":
     app(people); // restart
@@ -285,7 +286,7 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
      let parentCount = parentsOfPerson.count();
      let parentsCountSt = parentCount.tostring();
      var siblingInfo;
-    var parentInfo;
+     var parentInfo;
 
      switch(siblingsCountSt){
          case "1":
@@ -338,7 +339,7 @@ function displayPersonsFamily(person, spouseOfPerson, siblingsOfPerson, parentsO
       let ancestorid = person.id;
       let descendantsList = [];
       descendantsList = findChildren(ancestorid, people, descendantsList);
-
+      return descendantsList;
     }
 
     function findChildren(parentId, people){
