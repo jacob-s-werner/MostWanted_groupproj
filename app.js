@@ -55,7 +55,7 @@ function mainMenu(person, people){
       findFamilyMembers(person, people);
     break;
     case "descendants":
-      descendantsList = findDescendents(person, people);
+      let descendantsList = findDescendents(person, people);
       displayPeople(descendantsList);
     break;
     case "restart":
